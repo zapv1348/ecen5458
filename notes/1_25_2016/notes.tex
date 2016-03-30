@@ -1,0 +1,67 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Bureaucrucy}
+she will be gone Thursday through Sunday\\
+office hours: Friday (11am-12pm) in ECEE 1b85\\
+
+\section*{Unstable Zeros}
+sometimes digital controllers will have unstable zeros that don't exist in the original system.\\
+
+\section*{Difference Equations}
+\[u_k=u_{k-1}+\text{area of tapezoid}\]
+
+\section*{Analysis of Systems}
+Transfer functions, state-space representations, block diagram manipulation,\\
+
+\subsection*{Transfer Function}
+Z-transform is directly analagous to the Laplace transform\\
+
+Z-transform of difference equation and solve for $\frac{U(z)}{E(z)}$\\
+
+$u_{k-1}\to z^{-1}U(z)$
+\[H(z)=\frac{b(z)}{a(z)}\]
+solutions of $b(z)=0$ are zeros, solutions of $a(z)=0$ are poles.\\
+
+
+special case where $H(z)=z^{-1}$ all constant except $b_1$ are zero. This is a unit delay, $u_k=e_{k-1}$.\\
+
+state space, converting from nth order difference equation to n 1st order difference equations.\\
+
+remember that state-space representations are not unique.\\
+
+Controllable canonical form.\\
+
+if you only use simple delays, gains and summers in a state-space rep, you will have a uniquely corresponding state-space representation.\\
+
+look at the notes online for an example of converting high order difference equations to first order ones.\\
+
+feedback loop transfer function, plant $H_1$ and positive feedback $H_2$. Transfer function is:
+\[\cfrac{U}{E}=\cfrac{H_1}{1-H_1H_2}\]
+so negative feedback would be:
+\[\cfrac{U}{E}=\cfrac{H_1}{1+H_1H_2}\]
+
+moving nodes across blocks.\\
+for multi-path, multi-loop block diagrams can be simplified using this or Mason's rule.\\
+
+stability\\
+
+for now, only bibo stab\\
+
+bibo stab test in notes, good stuff.\\
+
+
+\end{document}

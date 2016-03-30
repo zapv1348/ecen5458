@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Discrete Time Systems}
+largest pole inside unit circle, stable difference equation.\\
+unit step function here is $1(k)$\\
+look at the useful summations thing on web.\\
+poles and zeros are the same as with the Laplace transform except z is the variable.\\
+
+Z-transform properties, linearity.\\
+convolution\\
+time-shift\\
+time invariance (shift the input, output will be shifted same amount), this doesn't really work well for sampled systems unless you shift by a multiple of the sample rate.\\
+scaling property\\
+Final-value theorem\\
+methods of inverse transform.\\
+\[F(z)=\cfrac{b_0+b_1z^{-1}+\dots+b_mz^{-m}}{1+a_1z^{-1}+a_2z^{-2}+\dots+a_nz^{-n}}\]
+can get to the form after this by multiplying by $\frac{z^n}{z^n}$.\\
+\[=\cfrac{z^{n-m}(b_0z^m+b_1z^{m-1}+\dots+b_m)}{z^n+a_1z^{n-1}+a_2z^{n-2}+\dots+a_n}\]
+then you can use partial fraction expansion to get it in a nice form.\\
+inverse z transform integral exists.\\
+
+
+\end{document}

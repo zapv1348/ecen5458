@@ -1,0 +1,78 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zahary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{first day stuff}
+annottated notes are on d2l as well.\\
+
+Matlab and Simulink primers online.\\
+
+Last problem of homework 1 is to state whether or not your doing the project or labs. And who your partner is.\\
+
+Intermediate deadlines for project.\\
+
+project is 20\% of the course grade.
+
+\section*{Lecture}
+going back through getting a difference equation.\\
+
+as sample rate decreases below 30 times bandwidth, the performance degrades (overshoot, less damping, long settling times)\\
+
+Discrete tiem conversion.\\
+
+on average, a zero order hold has a half period lag (T/2).\\
+First order hold, second order hold exist?\\
+can we account for this delay in our controller.\\
+simply include a T/2 delay in a continuous-time analysis to get a good agreement of results.\\
+\[U(s)=e^{-s\frac{T}{2}}\]
+so just multiply $u(t)$ times $e^{-s\frac{T}{2}}$.\\
+could locus the closed loop poles, but that exponential is gonna be rough. Use what's known as the Pad\'{e} (accent e) approximation.\\
+\[e^{-s\frac{T}{2}}=\frac{b_0}{a_0s+1}\]
+\[e^{-s\frac{T}{2}}=1-\frac{sT}{2}+\cfrac{\frac{sT}{2}^2}{2}+\dots\]
+long division of $1+a_0s$ into $b_0$.\\
+\[b_0=1\quad a_0=\frac{T}{2}\]
+
+could also do a bode plot, and find the phase and gain margin.\\
+crossover freqeuncy where mag=1\\
+
+\subsection{Discret-Time Systems}
+Linear difference equations, Z-Transform, Inverse Z-Transform
+\[u_k=F(e_0,\dots,e_k,u_0,\dots,u_{k-1})\]
+$u_k$ depends on up to n past values of $u_k$ and m past values of $e_k$ linearly.\\
+Z-transform is really useful in solving difference equations.\\
+recursive trapezoid formula here.
+\[u_k=u_{k-1}+\frac{T}{2}(e_k+e_{k-1})\]
+where the initial area is zero.\\
+suppose $e(t)=t$
+\[u_k=u_{k-1}+\frac{T^2}{2}(2k-1)\]
+\[u_k=k^2\frac{T^2}{2}\]
+normally can't do this, will want to do z transform.\\
+
+Z-transform dog\\
+\[E(z)=Z\{e_k\}=\sum_{k=-\infty}^{\infty}e_kz^{-k},\quad r_0<\lvert z\rvert<R_0\]
+so there is a set region of convergence.\\
+if it's causal then $R_0$ is infinity. If all poles are inside the unit circle then the system is stable.\\
+
+region of convergence for the laplcae transform is a vertical strip.\\
+if it's causaul $Re(s)>\sigma_1$.\\
+
+gave a non-causal example. Causal system, build the inverse which will than be acausal. Then the input and output will be related by 1. This is okay if you know what your input needs to be.\\
+
+every z-transform has an acausal and causal inverse. Therefore, you need ROC to determine which is which.\\
+
+
+
+
+\end{document}

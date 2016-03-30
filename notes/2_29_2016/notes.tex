@@ -1,0 +1,38 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Lecture}
+nyquist stability continued.\\
+
+Designing compensators from bode plots.\\
+crossover frequency and phase margin\\
+
+for compensator, you can back out where the pole needs to be to effect a given frequency with:
+\[\omega=\cfrac{1-z_1}{T}\]
+breakpoints at:
+\[\lvert 1-z_1\rvert=\omega T\]
+\[\lvert 1-p_1\rvert=\omega T\]
+very accurate if $\omega T\leq 0.1$ sampling frequency is about 60X the breakpoint frequency you want.\\
+works till $\omega T\leq 8$ is 45 degrees.\\
+
+lead used to improve transient response, lag used to improve steady-state characteristics.\\
+
+usually for lag compensators, the pole is really close to 1 and the zero is close to 1 as well.\\
+
+margin command for gain and phase margins.\\
+
+
+\end{document}

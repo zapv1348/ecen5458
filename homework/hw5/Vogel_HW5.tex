@@ -1,0 +1,130 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\title{Homework 5: Digital Control (ECEN 5458)}
+\author{Zachary Vogel}
+\date{\today}
+
+\newcommand{\rank}{\text{rank}}
+
+\begin{document}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+
+
+
+\maketitle
+
+\section*{Problem 1}
+\subsection*{(a)}
+Use the infinite series expansion to compute $\boldsymbol{\Phi}=e^{\boldsymbol{A}T}$. Where:
+\[\boldsymbol{A}=\begin{bmatrix}-1 & 0\\0 & -2\end{bmatrix}\]
+First find $A^2$ and $A^3$:
+\[\boldsymbol{A}^2=\begin{bmatrix}1 & 0\\0 & 4\end{bmatrix}\]
+\[\boldsymbol{A}^3=\begin{bmatrix}-1 & 0\\0 & -8\end{bmatrix}\]
+Thus, we find $\boldsymbol{\Phi}$.
+\[\boldsymbol{\Phi}=I+\begin{bmatrix}-T & 0\\0 & -2T\end{bmatrix}+\begin{bmatrix}\cfrac{T}{2!} & 0\\0 & \cfrac{4T}{2!}\end{bmatrix}+\begin{bmatrix}\cfrac{-T}{3!}&0\\0&\cfrac{-8T}{3!}\end{bmatrix}+\dots=\begin{bmatrix}\sum_{i=0}^{\infty}\cfrac{(-1)^iT^i}{i!}&0\\0&\sum_{i=0}^\infty\cfrac{(-2)^iT^i}{i!}\end{bmatrix}\]
+The simple form of this is of course:
+\[\boldsymbol{\Phi}=\begin{bmatrix}e^{-T}&0\\0&e^{-2T}\end{bmatrix}\]
+
+\subsection*{(b)}
+Here we want to show that if $\pmb{F}=\pmb{T}\pmb{A}\pmb{T}^{-1}$ for some non-singular transformation $\pmb{T}$ then:
+\[e^{\pmb{F}T}=\pmb{T}e^{\pmb{A}T}\pmb{T}^{-1}\]
+This property comes fairly quickly from the Taylor series.
+\[e^{\pmb{F}T}=\pmb{I}+\pmb{F}T+\cfrac{\pmb{F}^2T^2}{2!}+\dots=\pmb{T}\pmb{I}\pmb{T}^{-1}+\pmb{T}\pmb{A}\pmb{T}^{-1}T+\cfrac{\pmb{T}\pmb{A}\pmb{T}^{-1}\pmb{T}\pmb{A}\pmb{T}^{-1}T^2}{2!}+\dots\]
+Since all of the inner $\pmb{T}^{-1}\pmb{T}$ terms reduce to $\pmb{I}$ all $\pmb{F}^n$ terms will reduce to $\pmb{T}A^n\pmb{T}^{-1}$. Then we factor out to get:
+\[e^{\pmb{F}T}=\pmb{T}\left (\pmb{I}+\pmb{A}T+\cfrac{\pmb{A}^2T^2}{2!}+dots\right )\pmb{T}^-1=\pmb{T}e^{\pmb{A}T}\pmb{T}^{-1}\]
+
+\subsection*{(c)}
+Show that if:
+\[\pmb{F}=\begin{bmatrix}-3 & 1\\-2 & 0\end{bmatrix}\]
+there exists a $\pmb{T}$ such that $\pmb{T}\pmb{A}\pmb{T}^{-1}=\pmb{F}$.\\
+This can be done by expanding both sides with $\pmb{T}\pmb{A}=\pmb{F}\pmb{T}$. $\pmb{T}$ is an arbitrary matrix:
+\[T=\begin{bmatrix}a &b\\c&d\end{bmatrix}\]
+Then we get:
+\[-1a=-3a+b\quad -1b=-2a \quad -2c=-3c+d \quad -2d=-2c\]
+This gives that $c=d$ and $b=2a$, which are the only constraints on the matrix $T$.\\
+
+\subsection*{(d)}
+Using the property in part b we just need a transformation matrix:
+\[\pmb{T}=\begin{bmatrix}1&1\\2&1\end{bmatrix}\]
+The inverse of this is:
+\[\pmb{T}^{-1}=\begin{bmatrix}-1 & 1\\2&-1\end{bmatrix}\]
+Finally we get:
+\[e^{\pmb{F}T}=\pmb{T}e^{\pmb{A}T}\pmb{T}^{-1}=\pmb{T}\begin{bmatrix}-e^{-T}&e^{-T}\\2e^{-2T}&-e^{-2T}\end{bmatrix}=\begin{bmatrix}-e^{-T}+2e^{T}&e^{-T}-e^{-2T}\\-2e^{-T}+2e^{-2T}&2e^{-T}-e^{-2T}\end{bmatrix}\]
+
+\section*{Problem 2}
+Given the rigid body plant:
+\[G_1(s)=\cfrac{y(s)}{u(s)}=\cfrac{C}{s^2}\]
+where $C=\frac{1}{21}$.
+\subsection*{(a)}
+Convert the system to a discret-time state-space form with $T=0.2$. Use the state vector $\pmb{x}=\begin{bmatrix}\dot{y}=x_1& y=x_2\end{bmatrix}^T$ for the state representation of the continuous-time $G_1(s)$.\\
+The differential equation is:
+\[\ddot{y(t)}=Cu(t)\]
+since $\dot{x_1}=\ddot{y}=Cu$ and $\dot{x_2}=x_1$ we get:
+\[\dot{\pmb{x}}=\begin{bmatrix}\dot{x_1}=\ddot{y}\\\dot{x_2}=x_1\end{bmatrix}=\begin{bmatrix}0 & 0\\1&0\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}+\begin{bmatrix}\frac{1}{21}\\0\end{bmatrix}u\]
+and
+\[y=\begin{bmatrix}0 &1\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}\]
+Now we find the discrete form. First, we realize that $\pmb{F}^n$ for $n>1$ is $\pmb{0}$. Thus $\pmb{\Phi}$ is:
+\[\pmb{\Phi}=\pmb{I}+\pmb{F}T=\begin{bmatrix}1 & 0\\T=0.2 & 1\end{bmatrix}\]
+Then, we need to find $\pmb{\Gamma}$:
+\[\pmb{\Gamma}=\int_0^Te^{\pmb{F}\eta}d\eta \pmb{G}=\begin{bmatrix}T=0.2&0\\T^2=0.04&T=0.2\end{bmatrix}\begin{bmatrix}\frac{1}{21}\\0\end{bmatrix}=\begin{bmatrix}\frac{1}{105}\\[0.3em]\frac{1}{21*25}\end{bmatrix}\]
+
+\subsection*{(b)}
+Find the control law state-feedback gain $\pmb{K}$ so that the poles of the full state-feedback system have a natural frequency of $\omega=1.0$rad/sec and a damping coefficient $\zeta=0.5$.\\
+So, the closed-loop poles of our system need to be at:
+\[p_1,p_2=e^{sT}\bigg|_{s=-\zeta\omega\pm j\omega\sqrt{1-\zeta^2}}=0.8193\pm 0.15594j\]
+The closed loop characteristic equation is then:
+\[\alpha_c(z)=(z-p_1)(z-p_2)=z^2-1.786z+0.81873\]
+Now, we need that $\det(z\pmb{I}-\pmb{\Phi}+\pmb{\Gamma}\pmb{K})=z^2-1.786z+0.81873$. This gives:
+\[\begin{bmatrix}z-1&0\\-0.2&z-1\end{bmatrix}+\begin{bmatrix}\frac{k_1}{105}&\frac{k_2}{105}\\[0.3em]\frac{k_1}{21*25}&\frac{k_2}{21*25}\end{bmatrix}=\begin{bmatrix}z-1+\frac{k_1}{105}&\frac{k_2}{105}\\[0.3em]-0.2+\frac{k_1}{21*25}&z-1+\frac{k_2}{21*25}\end{bmatrix}\]
+Then, the characteristic equation is:
+\[\alpha_c(z)=z^2+\left(-2+\cfrac{k_1}{105}+\cfrac{k_2}{21*25}\right)+\left (\cfrac{k_2}{21*25}-\cfrac{k_1k_2}{21^25^3}+1+\cfrac{k_1k_2}{21^25^3}-\cfrac{k_1}{105}-\cfrac{k_2}{21*25}\right )\]
+So we need to solve for $0.21740=\frac{k_1}{105}+\frac{k_2}{21*25}$ and $-0.18127=\frac{k_1}{105}$. This gives $k_1=-19.033$ and $k_2=209.30$ and thus:
+\[\pmb{K}=\begin{bmatrix}-19.033 &209.30\end{bmatrix}\]
+
+\section*{Problem 3}
+Consider the mass-spring-damper-mass plant:
+\[G_2(s)=\cfrac{d(s)}{u(s)}=\cfrac{b}{Mm}\cfrac{s+\frac{k}{b}}{s^2(s^2+(\frac{1}{m}+\frac{1}{M})(bs+k))}\]
+Assume that $M=20$kg, $m=1$kg, $k=32$N/m, $b=0.3$ N-sec/m. Will be using matlab.
+\subsection*{(a)}
+What is the damping coefficient and the oscillatory frequency of the system in Hz?\\
+I have done this in Matlab with the damp function. We can also see that $\omega=\sqrt{(\frac{1}{m}+\frac{1}{M})*k}$ and $2\omega\zeta=(\frac{1}{m}+\frac{1}{M})*b$. This gives $\omega=5.796$rad/s. In Hertz it will be $\omega_{Hz}=0.9225$. The damping ratio is then $\zeta=0.1707$
+\subsection*{(b)}
+Convert the system to discrete-time state-space form with $T=0.2$sec. Use the state vector $\pmb{x}=\begin{bmatrix}\dot{y} y \dot{d} d\end{bmatrix}^T$ for the state space representation of the continuous system.\\
+Unfortunately, Matlab won't put it in the required form, so I will do that by hand. We are given the equations:
+\[\ddot{y}=\cfrac{u-b(\dot{y}-\dot{d})-k(y-d)}{M}\quad \ddot{d}=\cfrac{-b(\dot{d}-\dot{y})-k(d-y)}{m}\]
+This gives the matrices:
+\[A=\begin{bmatrix}-\frac{b}{M}&-\frac{k}{M}&\frac{b}{M}&\frac{k}{M}\\[0.3em]1&0&0&0\\[0.3em]\frac{b}{m}&\frac{k}{m}&-\frac{b}{m}&-\frac{k}{m}\\[0.3em]0&0&1&0\end{bmatrix}\quad B=\begin{bmatrix}\frac{1}{M}\\0\\0\\0\end{bmatrix}\quad C=\begin{bmatrix}0&0&0&1\end{bmatrix}\quad D=0\]
+These are then put into matlab and the c2d function is used to put it into a discrete form. The code is in the appendix. The final matrices for the discrete form are:
+\[\Phi=\begin{bmatrix}0.3638&-0.6436&0&0\\1.226&0.4121 &0&0\\0.14&0.1558&1&0\\0.009821&0.01788&0.2&1\end{bmatrix}\quad \Gamma=\begin{bmatrix}0.07662\\0.06999\\0.00491\\0.0002519\end{bmatrix} \quad H=\begin{bmatrix}0&0&0.00375&0.4\end{bmatrix}\quad J=0\]
+
+\appendix
+\section*{Code Appendix}
+\lstinputlisting{PR3.m}
+
+\end{document}

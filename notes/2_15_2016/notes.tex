@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Lecture}
+combining different things to get a nice triangle function.
+\[H_{\text{tri}}(z)=\cfrac{z^2-2z+1}{Tz}\mathfrak{Z}\left (\cfrac{H(s)}{s^2}\right )\]
+if $D(s)$ is causal then $D(z)$ should be causal.\\
+
+design in continuous domain and then convert to discrete. This will work sometimes, but it is often better to directly make a discrete controller.\\
+
+rlocus review:
+\begin{itemize}
+    \item $H(s)$ has phase $-180$ on the locus.
+    \item
+\end{itemize}
+\begin{enumerate}
+    \item Mark poles and zeros of H(s)
+    \item segments of the real axis to the left of an odd number of poles and zeros are on the locus
+    \item sketch asymptotes as $K\to\infty$, $\alpha=\cfrac{\sum p_i-\sum z_i}{n-m}$ and $l=\cfrac{180+360(l-1)}{n-m}$ and $l=1,2,\dots,n-m$. n=number of poles and m=number of zeros.
+    \item determine the departure and arrival angles from poles and zeros. q is multiplicity of poles and zeros. $\phi_{\text{dep}}=\frac{1}{q}(\sum\psi_i-\sum\phi_i-180-360*l)$ and $\psi_{\text{arr}}=\frac{1}{q}(\sum \phi_i+\sum\psi_i+180+360*l)$.
+\end{enumerate}
+
+
+\end{document}

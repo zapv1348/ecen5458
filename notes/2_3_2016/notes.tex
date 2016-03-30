@@ -1,0 +1,69 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{HW1}
+89.3 mean, 92 median, std 9.7\\
+only a few problems graded carefully\\
+main grader comment. Please organize homework so that it is easy to follow and grade. Poor organization gives a reduction in points.\\
+scores will be uploaded onto d2l, but there are issues currently.
+
+\section*{Presentation}
+paired presentation is about 10-14 minutes total.
+
+
+\section*{Lecture}
+s plane pole locations vs z-plane pole locations.\\
+exponentially decaying sinusoid stuff.\\
+s plane poles at $s_1,s_2$ then z plane will be at $e^{-s_1 T},e^{-s_2 T}$.\\
+look at making a conformal map from the s plane to the z plane.\\
+mapping from s to z is many to one.\\
+step response characteristics given the poles and zeros of the system.\\
+most systems can be described by second order and first order systems in superposition.\\
+dominate poles in z-plane are closest to the unit circle.\\
+
+minimum phase systems sometimes go backwards.\\
+
+Rest of the day, sample and hold circuit. Sampling, zero-order hold, first-order hole.\\
+what people call an A to D is usually a sample and hold circuit plus and A to D.\\
+
+
+\[r*(t)=\sum_{k=-\infty}^\infty r(t)\delta (t-kT)\]
+Z transform of this is:
+\[R(z)=\sum_{k=-\infty}^\infty r(kT)z^{-k}=\sum r(kT)e^{-skT}\]
+so $z=e^{sT}$.\\
+for $r*(t)=\delta(t)$ all you need is a value of 1 at $t=0$ and a value of zero at all other sample points.\\
+
+sometimes you might want a first order hold instead of a zero order hold.\\
+causul first order hold is where you take the current and previous sample and extrapolate that forward.\\
+The question is, do you ever to a feed forward type hold?\\
+
+in homework, will compute the trasnfer function of a first order hold.\\
+look at slides in homework to do this.\\
+
+Spectrum of a sampled signal.\\
+going to sampling theorem, want to reconstruct $r(t)$ perfectly from $r*(t)$.\\
+sifting property.\\
+
+\[R*(s)=\cfrac{1}{T}\sum_{n=-\infty}^\infty R(s-jn\omega_s)\]
+cut the frequency of your signal, so that there are not overlaps that mess up your wave.\\
+sampling frequency must be twice the highest frequency in the signal to reconstruct perfectly.\\
+ideal low pass filter in the time domain is:
+\[l(t)=sinc\cfrac{\pi t}{T}\]
+with $sinc(x)=\cfrac{\sin(x)}{x}$.\\
+
+
+
+\end{document}

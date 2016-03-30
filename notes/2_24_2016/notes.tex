@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Labs getting started}
+progress report on the 7th\\
+homework 4 is due March 9th.\\
+exam on the 16th.\\
+
+\section*{Lecture}
+frequency response is hard to sketch by hand cause the $e^{j\omega T}$ term is akward.\\
+review system types, 0, 1, 2, and l.\\
+
+Gain and phase margin defined the same for discrete time as continuous time.\\
+
+gain margin tells you where the system becomes unstable on root locus.\\
+
+\[1+KG(z)=0\]
+
+phase of $G(s)-\frac{\omega T}{2}$ is close to the discrete phase margin.\\
+usually $\omega T<\frac{\pi}{2}$.\\
+
+rule of thumb, $PM>0$ and $GM>1$ stable. Not always correct.\\
+
+Nyquist stab crit.\\
+evaluate the RHP countour for $D(s)G(s)$ N=zeros-poles, Z is the number of zeros of 1+DG in RHP, and P is poles of 1+DG in the RHP.\\
+N is the number of CW encirclements of -1 for DG.\\
+If P=2 you want N=-2, so Z=0, which is stable.\\
+
+nyquist for discrete time, zeros outside the unit circle.\\
+$1+D(z)G(z)$.\\
+N - net CW enciclements of -1,\\
+Z - number of zeros outside unit circle.\\
+P - number of poles outside unit circcle.\\
+the countour around the upper half of the unit circle is the bode plot.\\
+branches out to infinity are complex conjugates of each other.\\
+
+alternate criterion because it is more difficult to do the fancy keyhole mapping.\\
+just flip the criterion on its head.\\
+consider the stable region instead of the unstable one. CCW circle around the unit circle.\\
+net ccw encirclements of -1 is the net number of stable zeros to stable poles.\\
+keep P and Z as the poles and zeros outside the unit circle.\\
+N=P-Z.\\
+
+
+
+\end{document}

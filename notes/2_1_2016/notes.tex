@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Missed the first part}
+Talking about state space rep of a simple system.\\
+State space matrices are F=A, G=B, H=C, and J=D.\\
+J will be zero for any strictly proper transfer function.\\
+
+you lazy slut, read the fucking slides cause you aren't paying attention.\\
+
+\section*{Real notess}
+a zero of a discrete-time system is a value of z such that the system output y=0 even if the initial state $x(t_0)$ and the forcing input u are nonzero.\\
+\[x(k+1)=\Phi x(k)+\Gamma u(k)\]
+\[y(k)=Hx(k)+Ju(k)\to\]
+\[(zI-\Phi)X(z)-\Gamma U(z)=0\]
+\[HX(z)+JU(z)=0\]
+\[\begin{bmatrix}zI-\Phi&\Gamma\\H&J\end{bmatrix}\begin{bmatrix}X(z)\\U(z)\end{bmatrix}=0\]
+first matrix is $(n+1)\times (n+1)$, second matrix is $(n+1)\times 1$.
+
+\section*{Discrete Time Systems and Dynamic Response}
+talking about signal convergence.\\
+
+\[e_4(k)=r^k\cos(k\theta)1(k)\]
+\[E_f(z)=\frac{1}{2}\sum_{k=0}^\infty (r^ke^{jk\theta}z^{-k})+r^ke^{-jk\theta}z^{-k}\]
+\[=\cfrac{1}{2}\left (\cfrac{1}{1-re^{j\theta}z^{-1}}+\cfrac{1}{1-re^{-j\theta}z^{-1}}\right )\]
+ROC $\lvert re^{j\theta}z^{-1}\rvert <1 \to \lvert rz^{-1}\rvert <1$.\\
+\[E_4(z)=\cfrac{1}{2}\left (\cfrac{z}{z-re^{j\theta}}+\cfrac{z}{z-re^{-j\theta}}\right )\]
+after some work, you get:
+\[E_4(z)=\cfrac{z(z-r\cos(\theta))}{z^2-2r(\cos\theta)z+r^2}, \quad \lvert z\rvert >\lvert r\rvert\]
+zeros at $0, r\cos \theta$.\\
+poles at $\cfrac{2r\cos(\theta)\pm\sqrt{4r^2\cos^2\theta-4r^2}}{2}=r\cos(\theta)\pm jr\sin(\theta)=re^{\pm j\theta}$\\
+closer poles are to the origin, faster the decay is.\\
+
+figure 4.24 is not a smith chart.\\
+
+
+Correspondence of s plane poles and zeros with z plane poles and zeros.
+\[Y(s)=\cfrac{s+a}{(s+a)^2+b^2}=\cfrac{s+a}{s^2+2\zeta\omega s+\omega^2}\]
+\[y(t)=e^{-at}\cos(bt)1(t)\]
+poles: $s_1,s_2=-a\pm jb=-\zeta\omega\pm j\omega\sqrt{1-\zeta^2}$
+\[y(k)=y(t)\bigg|_{t=kT}=e^{-aKT}\cos(bkT)1(kT)\]
+
+poles: $z=e^{(-a\pm jb)T}=e^{s_1T}, e^{s_2T}$\\
+In general, if a continuous signal $y(t)$ has Laplcae transform $Y(s)$ with poles $s_1,s_2,\dots,$ then the sampled (discrete) signal $y(kT)$ has z-transform $Y(z)$ with poles $z_1,z_2,\dots$ where:
+\[z_i=e^{s_iT}\]
+
+\[s_1,s_2=-\zeta\omega T+j\omega\sqrt{1-\zeta^2}\]
+only intersted in that till the phase is $\pm \frac{\pi}{T}$ because of aliasing.\\
+this all gives log spirals, which are the graph in her notes. Again, they only go to phase=$\pi$ because aliasing produces the rest of the spirtal.
+
+\end{document}

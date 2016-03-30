@@ -1,0 +1,53 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zahary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{First Day}
+23 topics, lecture notes typeset on d2l.\\
+structure, background, and hopefully jumping in to material.\\
+
+goal is to actually design real controllers.\\
+goal is to get course structure, slide with nyquist, root locus and bode plot.\\
+digital controllers, difference equation from differential equation.\\
+discount code for pdf version of book \$ 35.
+
+OH after class monday wednesday, friday 11 to 12.\\
+
+Franklin, Powell, and Workman, Digital control of dynamic systems. 3rd edit. (1997 or 1998).\\
+Discount code is FPW3, on atlasbooks.\\
+ARe some other references, largely online at libraries.colorado.edu\\
+
+review ecen 5458\\
+
+digital controllers are used because they are much cheaper than analog controllers.\\
+ZOH hold?\\
+
+a digital signal is discrete in time and quantized (discrete in amplitude).\\
+
+$\frac{1}{T}$ is greater than 30 times the closed loop system bandwidth and quantization is less than $2^{-15}$.\\
+
+forward and backward difference approximations for differential equations.\\
+How many points is optimal? (quadratic? cubic?)\\
+
+lead lag compensator:
+\[D(s)=\frac{U(s)}{E(s)}K_0\frac{s+a}{s+b},\quad a>0,\quad b>0\]
+if a>b then lag, a<b then lead.\\
+\[sU(s)+bU(s)=k_0(sE(s)+aE(s))\]
+\[\dot{u}+bu=K_0(\dot{e}+ae)\]
+\[\frac{u_{k+1}-u_k}{T}+bu_k=K_0\left (\frac{e_{k+1}-e_k}{T}\right )+K_0ae_k\]
+then rewrite so that it is in the form $u_{k+1}=$\\
+
+
+\end{document}

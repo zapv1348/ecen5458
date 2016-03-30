@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Lecture}
+Homework 2 is due 2 weeks from now, start early. You did shit on the first one.\\
+
+BIBO stability\\
+
+Looking at it, if you have a sum:\\
+\[h(k)=\sum_{i=1}^n c_ip_i^k 1(k)+c_0\]
+and $\lvert p_i\rvert <1$ then the sequence is boundable.\\
+poles inside the unit circle.\\
+mostly going to look at bibo stability in this class, not really interested in state stability. Most of the time it is the same.\\
+
+
+Jury stability criterion, the digital analogy to Routh Stability criterion.\\
+
+\subsection*{Discrete models of sampled-data systems}
+Once again assume that your D to A is a zero order hold device.\\
+you can represent your whole system as a discrete transfer function with $u(kT)$ as the input to a D to A and $y(kT)$ as an output from your A to D.\\
+
+state space representation.
+\[\Phi, \Gamma, H, J\]
+\[x(k+1)=\Phi x(k)+\Gamma u(k)\]
+\[y(k)=H x(k)+Ju(k)\]
+
+trying to derive the difference state space equation using differential state space representation.\\
+
+F a matrix, $(e^{F\tau})^{-1}=e^{-F\tau}$.
+
+\[x_p(t)=\int_{t_0}^te^{F(t-\tau)}Gu(\tau)d\tau\]
+convolution between Gu and the state transition matrix.\\
+
+\[x(t)=e^{F(t-t_0)}x(t_0)+\int_{t_0}^te^{F(t-\tau)}Gu(\tau)d\tau\]
+then sub in $t_0=kT$ and $t=kT+T$. This yields:
+\[x(kT+T)=e^{FT}x(kT)+\int_{kT}^{kT+T}e^{F(kT+T-\tau)}Gu(\tau)d\tau\]
+with a zero order hold,  assume that $u(\tau)=u(kT)$, $kT\leq \tau<kT+T$ also sub in that $\eta=kT+T-\tau$ and $d\eta=-d\tau$. This gives:
+\[-\int_T^0e^{F\eta}Gd\eta u(kT)=\int_0^Te^{F\eta}d\eta Gu(kT)\]
+and:
+\[x(kT+T)=e^{Ft}x(kT)+\int_0^Te^{F\eta}d\eta Gu(kT)\]
+H and J in the continuous time and discrete time model are the same.
+\[\Phi=e^{FT}\]
+\[\Gamma=\int_0^Te^{F\eta}d\eta G\]
+for F and G being A and B in the systems I normally study. Transfer function from state space is:
+\[\cfrac{Y(z)}{U(z)}=H(zI-\Phi)^{-1}\Gamma+J\]
+
+
+next time we will do the same thing we did with the transfer function to discrete domain with just state-space.
+
+\end{document}
