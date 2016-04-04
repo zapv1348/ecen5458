@@ -68,10 +68,10 @@ Gz1=n1z*n2z*Gz;
 
 %using Ackermans to get matrices that give desired poles for A-BK A-LC
 %use rlocus to figure uot where you want the poles of both.
-rlocus(Gz)
-sysog=ss(Gz)
-K1=acker(sysog.a,sysog.b,[0.5 0.2+.3*1i 0.2-.3*1i -0.6])
-L1=acker(sysog.a',sysog.c',[0.5 0.4+0.5*1i 0.4-0.51i -0.7])'
+%rlocus(Gz)
+sysog=ss(Gz);
+%K1=acker(sysog.a,sysog.b,[0.5 0.2+.3*1i 0.2-.3*1i -0.6])
+%L1=acker(sysog.a',sysog.c',[0.5 0.4+0.5*1i 0.4-0.51i -0.7])'
 
 
 
@@ -91,7 +91,20 @@ sps=speed/3600;
 %now assume we can write 4 bytes per touch
 sps1=sps/4;
 
+%Ts=0.007
+%4.6/Ts=zeta*omegan=sigma=657
+%pick zeta=0.5
+%omegan=920
+%920*10^-4=0.0920
+%
+%actual calculated K2, L2
+%exp(-657*10^(-4))=0.9364117
+%K2=acker(sysog.a,sysog.b,[0.5 0.5+0.5j 0.5-0.5j 0.8])
+K2=place(sysog.a,sysog.b,[0.5 0.5+0.5j 0.5-0.5j 0.8])
+%4.6/Ts=zeta*omegan=460
+%pick zeta=0.7
+%omegan=657.14
+%657*10^-4=0.064714
 
-
-
-
+%L2=acker(sysog.a',sysog.c',[0.6 0.7+0.2j 0.7-0.2j 0.9])'
+L2=place(sysog.a',sysog.c',[0.6 0.7+0.2j 0.7-0.2j 0.9])'
