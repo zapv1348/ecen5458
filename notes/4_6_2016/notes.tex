@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{state feedback design}
+current estimator is similar to a prediction estimator, but with the term $L_p$ replaced with $\Phi L_c$. If you make a prediction estimator all you should have to do is find:
+\[L_c=\Phi^{-1}L_p\]
+
+current estimator error dynamics:
+\[\tilde{x}(k)=x(k)-\bar{x}(k)\]
+\[\tilde{x}(k+1)=(\Phi-\Phi L_cH)\tilde{x}(k)\]
+
+Observability matrix $O_o$ doesn't change by replacing $H_c$ with $H\Phi$.\\
+reduced order estimator where your output is one of the states, so you don't need to estimate it.\\
+need to use this for furuta pendulum.\\
+
+
+
+\end{document}
