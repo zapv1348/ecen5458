@@ -1,0 +1,72 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\author{Zachary Vogel}
+\date{\today}
+\title{Notes in ECEN 5448}
+
+\begin{document}
+\maketitle
+
+
+\section*{Stuff}
+HW6 due on wednesday.\\
+fianl project is due April 20th by 5 pm.\\
+
+\section*{Lecture}
+state space based control design.\\
+what is $D(z)$ when using a state feedback estimator\\
+\[D(z)=\cfrac{U(z)}{Y(z)}=-K(zI-\Phi+\Gamma K+L_pH)^{-1}L_p\]
+$D(z)$ in state space:
+\[\hat{x}(k+1)=(\Phi-\Gamma K-L_pH)\hat{x}(k)+L_py(k)\]
+and:
+\[u(k)=-K\hat{x}(k)\]
+so really all we do is say, $H=-K$, $\Phi=\Phi-\Gamma K-L_pH$, and $\Gamma=L_p$.\\
+
+Introducing a non-zero reference input:\\
+basically you have two more matrices, one leading the input to the estimator and one to input to the plant.\\
+no loops were created, all forward path gain. Because of that m and n don't effect the poles, but can effect the zeros. Thus they can effect the transient response and steady-state error.\\
+
+The most common way to pick the estimator is to make it so that the reference is orthogonal to the estimator error. Thus the estimator error will be independent of r.\\
+$\tilde{x(k+1)}=x(k+1)-\hat{x}(k+1)\perp r$.\\
+\[\tilde{x}(k+1)=(\Phi-L_pH)\tilde{x}(k)+(\Gamma N-M)r(k)\]
+if r does not effect estimator error state, then:
+\[M=\Gamma N\]
+
+pick N to give you a low steady state error.\\
+\[\begin{bmatrix}N_x\\N_u\end{bmatrix}=\begin{bmatrix}\Phi-I& \Gamma\\H&J\end{bmatrix}^{-1}\begin{bmatrix}0\\1\end{bmatrix}\]
+
+now do the more general way where zeros are designed.\\
+the zeros of the system can be written:
+\[\begin{bmatrix}zI-\Phi+\Gamma K & -\Gamma\\H&0\end{bmatrix}\begin{bmatrix}X(z)\\NR(z)\end{bmatrix}=0\]
+determinant of the first part =0.\\
+\[\det\begin{bmatrix}zI-\Phi&-\Gamma\\H & 0\end{bmatrix}=0\]
+the zeros here are the zeros of $G(z)$ which are stuck, only really moving the poles.\\
+
+
+controller and estimator with non-zero reference input.\\
+\[\hat{x}(k+1)=(\Phi-\Gamma K-L_pH)\hat{x}(k)+L_py(k)+Mr(k)\]
+\[u(k)=-K\hat{x}(k)+Nr(k)\]
+what are the zeros from r to u?\\
+without lloss of generality, assume $y(k)=0$.\\
+\[\begin{bmatrix}zI-\Phi+\Gamma K+L_pH&-\frac{M}{N}\\-K&1\end{bmatrix}\begin{bmatrix}\hat{X}(z)\\NR(z)\end{bmatrix}=0\]
+solve for the determinant of the first matrix equal to 0.\\
+
+same thing as the estimator problem when written:
+\[\det (zI-A+\frac{M}{N}K)=0\]
+where $A=\Phi-\Gamma K-L_pH$. Build an observability matrix with $A$ and $-K$ and if that is full rank we can pick any $\gamma(z)$ we want and find $\frac{M}{N}$.\\
+\[\cfrac{Y(z)}{R(z)}=\eta\cfrac{\gamma(z)b(z)}{\alpha_e(z)\alpha_c(z)}\]
+given $M=\Gamma N$ we get that $\frac{M}{N}=\Gamma$ and:
+\[\gamma(z)=\det(zI-\Phi+L_pH)=0\]
+then we get:
+\[\cfrac{Y(z)}{R(z)}\eta\cfrac{b(z)}{\alpha_c(z)}\]
+if you are forced to have an error as the input of your controller, rewrite everything in terms of $r-y$. Then, $N=0$ and $M=-L_p$.\\
+
+
+
+\end{document}
