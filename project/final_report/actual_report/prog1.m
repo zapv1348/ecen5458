@@ -100,25 +100,30 @@ dsys=canon(sysf,'companion');
 %actual calculated K2, L2
 %exp(-657*10^(-4))=0.9364117
 %K2=acker(sysog.a,sysog.b,[0.5 0.5+0.5j 0.5-0.5j 0.8])
-K2=place(sysog.a,sysog.b,[0.5 0.5+0.5j 0.5-0.5j 0.8])
+K2=place(sysog.a,sysog.b,[0.5 0.5+0.5j 0.5-0.5j 0.8]);
 %4.6/Ts=zeta*omegan=460
 %pick zeta=0.7
 %omegan=657.14
 %657*10^-4=0.064714
 
 %L2=acker(sysog.a',sysog.c',[0.6 0.7+0.2j 0.7-0.2j 0.9])'
-L2=place(sysog.a',sysog.c',[0.4 0.4+0.2j 0.4-0.2j 0.7])'
+L2=place(sysog.a',sysog.c',[0.4 0.4+0.2j 0.4-0.2j 0.7])';
 
 
 sysobs=ss(sysog.a-sysog.b*K2-L2*sysog.c,L2,K2,0,10^(-4));
-pzmap(sysobs)
-%pzmap(sysobs*sysog)
-%rst=xlabel('Real');
-%rst.FontSize=16;
-%rsy=ylabel('Imag');
-%rsy.FontSize=16; 
-%rsx=title('PZMap Observer w/State Feedback and Plant');
-%rsx.FontSize=12;
+
+pzmap(sysobs*sysog)
+rst=xlabel('Real');
+rst.FontSize=16;
+rsy=ylabel('Imag');
+rsy.FontSize=16;
+rsx=title('PZMap Observer w/State Feedback and Plant');
+rsx.FontSize=12;
+
+
+
+
+
 
 
 %disturbance rejection
@@ -146,5 +151,5 @@ Fz1=Fz*buz;
 %semilogy(squeeze(mag1(1,1,:)))
 %hold
 %semilogy(1./(squeeze(mag2(1,1,:))))
-%figure
-%bode(Gz,Fz1)
+figure
+bode(Gz,Fz1)

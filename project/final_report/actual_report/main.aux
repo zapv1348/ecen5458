@@ -1,0 +1,60 @@
+\relax 
+\citation{thesis}
+\citation{thesis}
+\citation{thesis}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces This figure illustrates the pole locations of the discrete-time system using a Zero Order Hold as a function of sampling frequency. As the sampling increases, the system has one non-minimum phase zero. The system was sampled at $10,000$Hz; therefore, the system will have one non-minimum phase zero.\relax }}{2}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:z_vs_SF}{{1}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The Bode plot shows the frequency response of $G(z)$. The two peaks correspond to the resonant frequencies of the system at $200\pi $ and $2000\pi $.\relax }}{3}}
+\newlabel{fig:GzBode}{{2}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The root locus of the system shows the zero and pole locations as a function of the system gain. The non-minimum phase zero is not shown.\relax }}{3}}
+\newlabel{fig:GzRL}{{3}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The zero and pole locations of $0.005\cdot G(z)$ are shown. (The non-minimum phase zero is not shown.) With this gain, the zeros and poles are located inside the unit circle.\relax }}{4}}
+\newlabel{fig:gzg_zp}{{4}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Parameters of the Step Response of $0.005 \cdot G(z)$\relax }}{4}}
+\newlabel{tab:gzSR}{{1}{4}}
+\citation{notchF}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The open-loop step response of $0.005*G(z)$. The parameters of the step response are given in Table 1\hbox {}. This step response will be used to determine desirable characteristics of the compensated system.\relax }}{5}}
+\newlabel{fig:GzSR}{{5}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Analysis}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Design using Frequency Domain Tools}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Block diagram of the compensator $D(z)$ and plant $G(z)$.\relax }}{6}}
+\newlabel{fig:dzComp}{{6}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Design of Feed-forward Controller}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Block diagram of feed-forward controller integrated into unity-feedback block diagram of our system. The block $F(z)$ is the feed-forward controller, which will be designed along with $E(z)$.\relax }}{6}}
+\newlabel{fig:d2}{{7}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The Bode plot of our plant and feedforward controller. Note that the magnitudes are almost inverted and that the phase at the beginning is 180 degrees out of phase.\relax }}{7}}
+\newlabel{fig:FZGZ}{{8}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Design Using State-Space Methods}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The Simulink Model of our State Observer with State Feedback.\relax }}{8}}
+\newlabel{fig:observer}{{9}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Results}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Simulation of Notch Filters and PID Controller}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Block diagram of the Notch Filters and Plant $G(z)$ in series.\relax }}{10}}
+\newlabel{fig:NF_BD}{{10}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces The pole and zero plots of $N_{200\pi }(z)$ (top), $N_{2000\pi }(z)$ (middle), and $G(z)$ (bottom) are shown to better illustrate the interaction of the poles and zeros of the plant with the poles and zeros of the notch filters.\relax }}{10}}
+\newlabel{fig:gzNFzp}{{11}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Bode plot of the closed-loop system of the notch filters, $N_{200\pi }(z)$ and $N_{2000\pi }(z)$, in series with $G(z)$. The Bode plot demonstrates the effect of the notch filters on the frequency response at the two resonant frequencies of the system.\relax }}{11}}
+\newlabel{fig:bodeNFGz}{{12}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces The step response of the closed-loop system in Figure 10\hbox {} of just the plant and the two notch filters.\relax }}{11}}
+\newlabel{fig:stepNFgz}{{13}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Step response of the closed loop system of $G(z)$ and the compensator $D(z)$ which consists of the two notch filters and the PID controller.\relax }}{12}}
+\newlabel{fig:dzStep}{{14}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Simulation of Feed-Forward Controller}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces The system response to an amplitude 1 step and a 5 rad/sec disturbance with amplitude 0.1.\relax }}{12}}
+\newlabel{fig:Dist5radasec}{{15}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces The system response to an amplitude 1 step and a 50 rad/sec disturbance with amplitude 0.1.\relax }}{13}}
+\newlabel{fig:Dist50radasec}{{16}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces The system response to an amplitude 1 step and a 500 rad/sec disturbance with amplitude 0.1.\relax }}{13}}
+\newlabel{fig:Dist500radasec}{{17}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Simulation of State-Space Design}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces The step response of the system with an observer and state feedback. Note that the settling time is well within our goal of 0.007 seconds. Also note the lack of oscillations and general smooth response.\relax }}{14}}
+\newlabel{fig:StepObs}{{18}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Pole Zero Map of the state space realization of $G(z)$ augmented with state feedback and an observer.\relax }}{15}}
+\newlabel{fig:Obspz}{{19}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{16}}
+\@writefile{lol}{\contentsline {lstlisting}{prog1.m}{17}}
+\bibcite{thesis}{1}
+\bibcite{notchF}{2}
