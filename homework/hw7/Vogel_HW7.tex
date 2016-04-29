@@ -1,0 +1,140 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{float}
+
+
+\title{Homework 7: Digital Control (ECEN 5458)}
+\author{Zachary Vogel}
+\date{\today}
+
+\newcommand{\rank}{\text{rank}}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+Given the double integrator plant:
+\[G_1(s)=\cfrac{1}{21s^2}\]
+Design a prediction bias estimator (to null out constant disturbances at the input) by augmenting the system with the bias model. Place two off the estimator poles as before at $\omega=4$rad/sec and $\zeta=0.7$, and place the third pole at $z=0.5$. What is the estimator gain $\pmb{L_p}$ for the augmented system?\\
+Section 8.5.2 of the book yields the state space model:
+\[\begin{split}\begin{bmatrix}\pmb{x}(k+1)\\w(k+1)\end{bmatrix}=\begin{bmatrix}\pmb{\Phi}&\pmb{\Gamma}_1\\0&1\end{bmatrix}\begin{bmatrix}\pmb{x}(k)\\w(k)\end{bmatrix}+\begin{bmatrix}\pmb{\Gamma}\\0\end{bmatrix}u(k)\\y(k)=\begin{bmatrix}\pmb{H}&0\end{bmatrix}\begin{bmatrix}\pmb{x}(k)\\w(k)\end{bmatrix}\end{split}\]
+We can fill this in with $\pmb{\Gamma}_1=\pmb{\Gamma}$.
+\[\begin{split}\begin{bmatrix}\pmb{x}(k+1)\\w(k+1))\end{bmatrix}=\begin{bmatrix}1&0&0.0095\\0.2&1&0.00095\\0&0&1\end{bmatrix}\begin{bmatrix}\pmb{x}(k)\\w(k)\end{bmatrix}+\begin{bmatrix}0.0095\\0.00095\\0\end{bmatrix}u(k)\\y(k)=\begin{bmatrix}0&1&0\end{bmatrix}\begin{bmatrix}\pmb{x}(k)&w(k)\end{bmatrix}\end{split}\]
+The feedback gain matrix should be:
+\[K=\begin{bmatrix}20.98&18.97&1\end{bmatrix}\]
+Then we find the estimator gain with:
+\[\lvert z\pmb{I}-\pmb{\Phi}+\pmb{L}_p\pmb{H}\rvert=(z^2-0.96z+0.33)(z-0.5)=0=\begin{bmatrix}z-1&l_1&-0.0095\\-0.2&z-1-l_2&-0.00095\\0&l_3&z-1\end{bmatrix}\]
+Thus:
+\[z^3-1.46z+0.81z-0.165=z^3+z^2(-3-l_2)+z(3+2l_2+l_3*0.0019+0.2L_1+0.0095l_3)+1+l_2+l_30.00285+0.2l_1\]
+Solving yields $l_2=-1.54$, and:
+\[\begin{bmatrix}0.89\\0.705\end{bmatrix}=\begin{bmatrix}0.2&0.00095\\0.2&0.00285\end{bmatrix}\begin{bmatrix}l_1\\l_3\end{bmatrix}\]
+which gives $l_1=4.9125$ and $l_3=-97.3684$ and:
+\[\pmb{L_p}=\begin{bmatrix}4.9125\\-1.54\\-97.3684\end{bmatrix}\]
+
+\section*{Problem 2}
+Consider the system:
+\[\pmb{x}(k+1)=\begin{bmatrix}0.1&0\\0&0.2\end{bmatrix}\pmb{x}(k)+\begin{bmatrix}1\\1\end{bmatrix}u(k),\quad y(k)=\begin{bmatrix}1&1\end{bmatrix}\pmb{x}(k)\]
+Suppose that the control signal $u(k)$ to the system must be quantized with m bits to the right of the fixed point and assume that round-off is used.\\
+\subsection*{(a)}
+What is the transfer function $u(k)$ to $y(k)$.
+\[G(z)=\begin{bmatrix}1&1\end{bmatrix}\left (\begin{bmatrix}z-0.1&0\\0&z-0.2\end{bmatrix}\right )^{-1}\begin{bmatrix}1\\1\end{bmatrix}=\cfrac{2(z-0.15)}{(z-0.1)(z-0.2)}=\cfrac{1}{z-0.1}+\cfrac{1}{z-0.2}\]
+\subsection*{(b)}
+How many bits are needed to guarantee that the magnitude of the error $\tilde{y}(k)$ at the output due to the quantization fo the control signal $u(k)$ is always less than or equal to $0.1$? That is, how many bits m are needed to guarantee that $\lvert \tilde{y}(k)\rvert\leq 0.1, \forall k$?\\
+This means we want:
+\[0.1/(2^{-m-1})< \sum_{k=0}^\infty \lvert h(k)\rvert\]
+We can find the inverse transform to be:
+\[h(k)=0.1^k+0.2^k\]
+I calculated this for 10000 trials of n in matlab really quickly (code not included cause it should be easy). That gave me that the bounded magnitude of $\lvert h(k)\rvert$ is very close to $2.3611$. Thus,
+\[2^{-m-1}=\cfrac{0.1}{2.3611}\]
+and m is the ceiling of the resulting value which is $4$.
+\subsection*{(c)}
+The steady state worst case is:
+\[2.3611*2^{-5}=0.0738\]
+
+\section*{Problem 3}
+11.7 from the text:\\
+Consider a plant consisting of a diverging exponential, that is,
+\[\cfrac{x(s)}{u(s)}=\cfrac{a}{s-a}\]
+Controlled discretely with a ZOH, this yields a difference equation, namely:
+\[x(k+1)=e^{aT}x(k)+(e^{aT}-1)u(k)\]
+Assume proportional feedback,
+\[u(k)=-Kx(k)\]
+and compute the gain $K$ that yields a z-plane root at $z=e^{-bT}$. Assume $a=1\text{sec}^{-1}$ and $b=2\text{sec}^{-1}$, and do the problem for $T=0.1$, $1.0$, $2$, $5$ sec. Is there an upper limit on the sample period that will stabilize this system? Compute the percent error in $K$ that will result in an unstable system for $T=2$ and $5$ seconds. Do you judge that the case when $T=5$ sec is practical?\\
+Our equation becomes:
+\[x(k+1)=(e^T-Ke^T+K)x(k)\]
+The pole is at $e^T-Ke^T+K=e^{-2T}$ and thus $K=\cfrac{e^{-2T}-e^T}{1-e^T}$. Below is a table of values for the various sample rates:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        T(sec) & K\\\hline
+        0.1 &2.7236 \\\hline
+        1.0 &1.5032 \\\hline
+        2 &1.1537 \\\hline
+        5 &1.0068 \\\hline
+    \end{tabular}
+\end{table}
+There is not an upper limit on a sample rate that will stabilize the system. The problem is that K becomse closer and closer to 1 as the sample rate goes up and thus the pole location will change rapidly with K. To compute the percent error of K that will lead to an unstable system we need to solve $e^T-Ke^T+K>1$. That yields, $K=1$. Thus the percent error for 2 seconds is $13$\% and for 5 seconds is $0.67$\%. This really isn't ideal for controller design because one wants to make a
+controller that is robust to minor changes in the system, but it could probabl be done.
+
+\section*{Problem 4}
+Consider the continuous-time plant transfer function:
+\[\mathfrak{G}(s)=\cfrac{Y(s)}{U(s)}=\cfrac{s}{s+1}=\cfrac{-1}{s+1}+1\]
+\subsection*{(a)}
+Determine the continuous-time state-space representation of the plant:
+\[\begin{split}\dot{x}(t)=Fx(t)+Gu(t)\\y(t)=Hx(t)+Ju(t)\end{split}\]
+we find it to be:
+\[F=-1\quad G=-1\quad H=1\quad J=1\]
+\subsection*{(b)}
+First order hold state space equations.
+\subsubsection*{(i)}
+Find $u(\tau)$ in the interval between $kT$ and $T(k+1)$.\\
+We find:
+\[u(\tau)\approx u(kT)+\dot{u}(kT)(\tau-kT)\approx u(kT)+\cfrac{u(kT)-u(kT-T)}{T}(\tau-kT)\]
+\subsubsection*{(ii)}
+Finding the equation in proper form
+\[x(kT+T)=e^{FT}x(kT)+\int_{kT}^{kT+T}e^{F(kT+T-\tau)}G\left (u(kT)+\cfrac{u(kT)-u(kT-T)}{T}(\tau-kT)\right )d\tau\]
+The part in the integral is equal to:
+\[e^{F(kT+T-\tau)}G\left (u(kT)\left (1+\cfrac{\tau-kT}{T}\right)-u(kT-T)\left (\cfrac{\tau-kT}{T}\right )\right )\]
+Thus our matrices are:
+\[\Phi_F=e^{FT}\quad \Gamma_F=\int_{kT}^{kT+T}e^{F(kT+T-\tau)}G\left (1+\cfrac{\tau-kT}{T}\right )d\tau\quad \Gamma_{F1}=\int_{kT}^{kT+T}-e^{F(kT+T-\tau)}G\left (\cfrac{\tau-kT}{T}\right )d\tau\]
+
+\subsubsection*{(iii)}
+Evaluating for the problem described in part (a) we get:
+\[\Phi_F=\Phi=e^{-T}\]
+Now for $\Gamma_F$:
+\[\int_{kT}^{kT+T}(k-1)e^{(\tau-kT-T)}-\cfrac{\tau}{T}e^{(\tau-kT-T)}d\tau=(k-1)(1-e^{-T})-\cfrac{1}{T}(kT+T-1)+\cfrac{e^{-T}}{T}(kT-1)\]
+simplify a little:
+\[k-ke^{-T}-1+e^{-T}-k-1+\cfrac{1}{T}+ke^{-T}-\cfrac{e^{-T}}{T}=e^{-T}-\cfrac{e^{-T}}{T}+\cfrac{1}{T}-2\]
+Which makes some sense because all the ks cancel.\\
+Now for $\Gamma_{F1}$:
+\[\Gamma_{F1}=\int_{kT}^{kT+T}e^{\tau-kT-T}\left (\cfrac{\tau-kT}{T}\right )d\tau=-ke^{\tau-kT-T}+\cfrac{1}{T}e^{\tau-kT-T}(\tau-1)\bigg|_{kT}^{kT+T}\]
+simplifying yields:
+\[-k(1-e^{-T})+\cfrac{1}{T}(kT+T-1)-\cfrac{1}{T}e^{-T}(kT-1)=ke^{-T}-k+k+1-\cfrac{1}{T}-ke^{-T}+\cfrac{1}{T}=1\]
+Similarly as we expect all the ks cancel.
+
+\subsubsection*{iv}
+Take the Z-transform of the equations in defining the state space variables for a first order hold.\\
+First I'm going to define $\alpha=e^{-T}-\frac{e^{-T}}{T}+\frac{1}{T}-2$. Then the state space equations are:
+\[\begin{split}x(kT+T)=e^{-T}x(kT)+\alpha u(kT)+u(T(k-1))\\y(kT)=x(kT)+u(kT)\end{split}\]
+This yields:
+\[\begin{split}X(z)z=e^{-T}X(z)+U(z)(\alpha+z^{-1})\\Y(z)=X(z)+U(z)\end{split}\]
+Solving for the state:
+\[X(z)=U(z)\cfrac{\alpha+z^{-1}}{z-e^{-T}}\]
+Then we find the transfer function to be:
+\[\cfrac{Y(z)}{U(z)}=\cfrac{\alpha+z^{-1}}{z-e^{-T}}+1=\cfrac{z^2+z(\alpha-e^{-T})+1}{z(z-e^{-T})}=\cfrac{z^2+z\left(\cfrac{1}{T}-\cfrac{e^{-T}}{T}-2\right )+1}{z(z-e^{-T})}\]
+
+\subsubsection*{v}
+Now we want to find the transfer function for this problem using the method derived in homework 3.
+\[\mathfrak{G}(z)=\cfrac{(z-1)^2}{Tz^2}\left (\mathcal{Z}\left (\cfrac{\mathfrak{G}(s)}{s^2}\right )+T\mathcal{Z}\left (\cfrac{\mathfrak{G}(s)}{s}\right )\right )\]
+Solving directly:
+\[\mathfrak{G}(z)=\cfrac{(z-1)^2}{Tz^2}\left (\cfrac{z(1-e^{-T})}{(z-1)(z-e^{-T})}+\cfrac{z}{z-e^{-T}}\right )=\cfrac{(z-1)}{Tz}\left (\cfrac{(1-e^{-T})+(z-1)}{z-e^{-T}}\right )\]
+One more:
+\[\mathfrak{G}(z)=\cfrac{(z-1)}{Tz}\]
+This isn't the same as what I derived, but then again I'm fairly sure the $\Gamma_F$ I found was slightly wrong. I believe these two techniques should result in the exact same function. They both assume the same model of the system and use the same hold technique.
+\end{document}
